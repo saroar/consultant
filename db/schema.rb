@@ -11,22 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214113822) do
+ActiveRecord::Schema.define(version: 20151214120622) do
 
   create_table "clients", force: :cascade do |t|
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "consultant_id"
   end
 
+  add_index "clients", ["consultant_id"], name: "index_clients_on_consultant_id"
   add_index "clients", ["user_id"], name: "index_clients_on_user_id"
 
   create_table "consultants", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "client_id"
   end
 
+  add_index "consultants", ["client_id"], name: "index_consultants_on_client_id"
   add_index "consultants", ["user_id"], name: "index_consultants_on_user_id"
 
   create_table "users", force: :cascade do |t|
