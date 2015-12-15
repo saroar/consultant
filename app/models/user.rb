@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
-  enum role: [:client, :consultant, :admin]
+  rolify
   after_initialize :set_default_role, if: :new_record?
 
   def set_default_role
-    self.role ||= :client
+    self.add_role :client if self.roles.first.nil?
   end
 
   # Include default devise modules. Others available are:
